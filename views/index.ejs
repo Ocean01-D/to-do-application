@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>To-Do App</title>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    
+    <!-- Add Task Form -->
+    <form action="/add" method="POST">
+        <input type="text" name="title" placeholder="Task Title" required>
+        <input type="text" name="user" placeholder="Content" required>
+        <button type="submit">Add Task</button>
+    </form>
+    
+    <!-- Task List -->
+    <ul>
+        <% tasks.forEach(task => { %>
+            <li>
+                <% if (task.isDone) { %>
+                    <s><%= task.title %> - <%= task.user %></s>
+                <% } else { %>
+                    <%= task.title %> - <%= task.user %>
+                    <form action="/done/<%= task._id %>" method="POST" style="display:inline;">
+                        <button type="submit">Mark Done</button>
+                    </form>
+                <% } %>
+                <form action="/delete/<%= task._id %>" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>
